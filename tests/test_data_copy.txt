@@ -1,0 +1,158 @@
+================================================================================
+                     MEDASSIST AI - COPY & PASTE TEST DATA
+================================================================================
+
+This document contains plain-text data fields organized by Scenario. You can copy and 
+paste these values directly into the corresponding fields in the web application UI.
+
+--------------------------------------------------------------------------------
+SCENARIO 1: ELDERLY DIABETIC PATIENT WITH HYPERTENSION (HARISH KUMAR)
+--------------------------------------------------------------------------------
+
+[1. Profile Page Inputs]
+Name:         Harish Kumar
+Age:          68
+Gender:       Male
+Weight:       74
+Height:       165
+Blood Group:  B+
+
+[2. Chronic Conditions - Add Disease Inputs]
+-- Condition 1 --
+Disease Name:    Type 2 Diabetes
+Severity:        Moderate
+Diagnosed Date:  2020-03-12
+Notes:           Under dietary and medicinal control.
+
+-- Condition 2 --
+Disease Name:    Hypertension
+Severity:        Severe
+Diagnosed Date:  2018-09-05
+Notes:           Regulated by daily Amlodipine.
+
+[3. Daily Medications - Add Medication Inputs]
+-- Medication 1 --
+Medicine Name:   Metformin
+Dosage:          500mg
+Frequency:       Twice daily after meals
+Notes:           For blood sugar control.
+
+-- Medication 2 --
+Medicine Name:   Amlodipine
+Dosage:          5mg
+Frequency:       Once daily in the morning
+Notes:           For blood pressure control.
+
+[4. Medication Safety Analyzer Input]
+Medicines:       Metformin, Amlodipine, Ibuprofen
+
+[5. Side Effect Analyzer Input]
+Medicine:        Ibuprofen
+
+[6. Alternative Medicine Recommender Input]
+Medicine:        Ibuprofen
+
+[7. Health Chat Assistant Question]
+Message:         Can I take Ibuprofen while taking Metformin and Amlodipine?
+
+
+--------------------------------------------------------------------------------
+SCENARIO 2: YOUNG ADULT WITH CHRONIC ASTHMA & ACID REFLUX (PRIYA SHARMA)
+--------------------------------------------------------------------------------
+
+[1. Profile Page Inputs]
+Name:         Priya Sharma
+Age:          29
+Gender:       Female
+Weight:       58
+Height:       162
+Blood Group:  O-
+
+[2. Chronic Conditions - Add Disease Inputs]
+-- Condition 1 --
+Disease Name:    Chronic Asthma
+Severity:        Mild
+Diagnosed Date:  2015-05-20
+Notes:           Uses inhaler during flares.
+
+-- Condition 2 --
+Disease Name:    GERD / Acid Reflux
+Severity:        Moderate
+Diagnosed Date:  2023-11-10
+Notes:           Triggers heartburn and chest acidity.
+
+[3. Daily Medications - Add Medication Inputs]
+-- Medication 1 --
+Medicine Name:   Montelukast
+Dosage:          10mg
+Frequency:       Once daily at night
+Notes:           For asthma prevention.
+
+-- Medication 2 --
+Medicine Name:   Pantoprazole
+Dosage:          40mg
+Frequency:       Once daily before breakfast
+Notes:           For reducing acid reflux.
+
+[4. Medication Safety Analyzer Input]
+Medicines:       Montelukast, Pantoprazole, Clarithromycin, Aspirin
+
+[5. Side Effect Analyzer Input]
+Medicine:        Aspirin
+
+[6. Alternative Medicine Recommender Input]
+Medicine:        Aspirin
+
+[7. Health Chat Assistant Question]
+Message:         Is it safe to take Aspirin if I have acid reflux and asthma?
+
+
+--------------------------------------------------------------------------------
+SCENARIO 3: ELDERLY PATIENT WITH CHRONIC KIDNEY DISEASE & GOUT (ROBERT D'SOUZA)
+--------------------------------------------------------------------------------
+
+[1. Profile Page Inputs]
+Name:         Robert D'Souza
+Age:          72
+Gender:       Male
+Weight:       80
+Height:       172
+Blood Group:  A+
+
+[2. Chronic Conditions - Add Disease Inputs]
+-- Condition 1 --
+Disease Name:    Chronic Kidney Disease
+Severity:        Severe
+Diagnosed Date:  2021-02-15
+Notes:           GFR is around 32.
+
+-- Condition 2 --
+Disease Name:    Gout
+Severity:        Moderate
+Diagnosed Date:  2022-07-18
+Notes:           Causes acute joint pain flares.
+
+[3. Daily Medications - Add Medication Inputs]
+-- Medication 1 --
+Medicine Name:   Allopurinol
+Dosage:          100mg
+Frequency:       Once daily
+Notes:           To lower uric acid levels.
+
+-- Medication 2 --
+Medicine Name:   Losartan
+Dosage:          50mg
+Frequency:       Once daily
+Notes:           For hypertension and kidney protection.
+
+[4. Medication Safety Analyzer Input]
+Medicines:       Allopurinol, Losartan, Naproxen, Colchicine
+
+[5. Side Effect Analyzer Input]
+Medicine:        Naproxen
+
+[6. Alternative Medicine Recommender Input]
+Medicine:        Naproxen
+
+[7. Health Chat Assistant Question]
+Message:         Why is Naproxen dangerous for Stage 3 Chronic Kidney Disease?

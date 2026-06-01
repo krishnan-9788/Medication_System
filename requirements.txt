@@ -1,0 +1,12 @@
+flask
+flask-cors
+python-dotenv
+groq
+easyocr
+opencv-python
+pillow
+reportlab
+numpy
+pandas
+requests
+werkzeug
