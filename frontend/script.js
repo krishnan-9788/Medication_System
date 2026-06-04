@@ -3,7 +3,7 @@
  * All API calls, UI interactions, and state management.
  */
 
-const API = "http://localhost:5000/api";
+const API = "/api";
 let currentUser = null;
 
 // ═══════════════════════════════════════════════════════════

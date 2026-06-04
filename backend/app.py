@@ -23,7 +23,7 @@ import pdf_generator
 load_dotenv()
 
 app = Flask(__name__, static_folder="../frontend", static_url_path="")
-app.secret_key = os.getenv("SECRET_KEY", secrets.token_hex(32))
+app.secret_key = os.getenv("SECRET_KEY", "dev_fallback_secret_key_change_in_production")
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=12)
 app.config["MAX_CONTENT_LENGTH"] = 20 * 1024 * 1024  # 20 MB
 
