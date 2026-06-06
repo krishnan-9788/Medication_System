@@ -234,31 +234,62 @@ async function loadDashboard() {
 
   // Profile summary
   const profile = data.profile;
-  const pEl = document.getElementById("dashboard-profile");
+  const nameEl = document.getElementById("dashboard-name-display");
+  const metaEl = document.getElementById("dashboard-meta-display");
+  const detailsEl = document.getElementById("dashboard-profile-details");
+  const avatarEl = document.getElementById("dashboard-avatar-initial");
+  
   if (profile && profile.name) {
-    pEl.innerHTML = `
-      <div class="pi"><span class="pi-label">Name</span><span>${escapeHtml(profile.name)}</span></div>
-      <div class="pi"><span class="pi-label">Age</span><span>${profile.age ?? "—"} years</span></div>
-      <div class="pi"><span class="pi-label">Gender</span><span>${escapeHtml(profile.gender) || "—"}</span></div>
-      <div class="pi"><span class="pi-label">Blood</span><span>${escapeHtml(profile.blood_group) || "—"}</span></div>
-      <div class="pi"><span class="pi-label">Weight</span><span>${profile.weight ? profile.weight + " kg" : "—"}</span></div>
-      <div class="pi"><span class="pi-label">Height</span><span>${profile.height ? profile.height + " cm" : "—"}</span></div>
-    `;
+    if(nameEl) nameEl.textContent = profile.name;
+    if(avatarEl) avatarEl.textContent = profile.name.charAt(0).toUpperCase();
+    
+    const ageStr = profile.age ? `${profile.age} years` : "Age N/A";
+    const genderStr = profile.gender || "Gender N/A";
+    const bloodStr = profile.blood_group || "Blood N/A";
+    if(metaEl) metaEl.textContent = `${ageStr} • ${genderStr} • ${bloodStr}`;
+    
+    if(detailsEl) {
+      detailsEl.innerHTML = `
+        <div class="p-stat"><div class="p-stat-label">⚖️ Weight</div><div class="p-stat-val">${profile.weight ? profile.weight + " kg" : "-- kg"}</div></div>
+        <div class="p-stat"><div class="p-stat-label">📏 Height</div><div class="p-stat-val">${profile.height ? profile.height + " cm" : "-- cm"}</div></div>
+        <div class="p-stat"><div class="p-stat-label">🩸 Blood Group</div><div class="p-stat-val">${escapeHtml(profile.blood_group) || "--"}</div></div>
+        <div class="p-stat"><div class="p-stat-label">⏱️ Last Updated</div><div class="p-stat-val">Today</div></div>
+      `;
+    }
+    const pEl = document.getElementById("dashboard-profile");
+    if(pEl) pEl.style.display = "none";
   } else {
-    pEl.innerHTML = `<p class="empty-state">No profile yet. <a href="#" onclick="showSection('profile')">Set up your profile →</a></p>`;
+    if(nameEl) nameEl.textContent = "Welcome!";
+    if(metaEl) metaEl.textContent = "Please set up your profile";
+    const pEl = document.getElementById("dashboard-profile");
+    if (pEl) {
+      pEl.style.display = "block";
+      pEl.innerHTML = `<p class="empty-state" style="margin-top:1rem;">No profile yet. <a href="#" onclick="showSection('profile')">Set up your profile →</a></p>`;
+    }
+    if(detailsEl) detailsEl.innerHTML = "";
   }
 
   // Recent analyses
   const recent = data.recent_analyses;
   const rEl = document.getElementById("dashboard-recent");
   if (recent && recent.length > 0) {
-    rEl.innerHTML = recent.map(a => `
-      <div class="recent-item">
-        <span class="recent-badge">${analysisTypeLabel(a.analysis_type)}</span>
-        <span class="recent-text">${escapeHtml(a.input_data || "").substring(0, 40)}...</span>
-        <span class="recent-date">${formatDate(a.created_at)}</span>
-      </div>
-    `).join("");
+    rEl.innerHTML = recent.map(a => {
+      let icon = "⚡";
+      if(a.analysis_type === "side_effects") icon = "◈";
+      if(a.analysis_type === "nutrition") icon = "❋";
+      if(a.analysis_type === "ocr") icon = "⊡";
+      if(a.analysis_type === "alternatives") icon = "↔";
+      return `
+        <div class="recent-item">
+          <div class="recent-icon">${icon}</div>
+          <div class="recent-content">
+            <div class="recent-title">${analysisTypeLabel(a.analysis_type)}</div>
+            <div class="recent-desc">${escapeHtml(a.input_data || "").substring(0, 40)}...</div>
+          </div>
+          <div class="recent-time" style="font-size:0.8rem;color:var(--gray);">${formatDate(a.created_at)}</div>
+        </div>
+      `;
+    }).join("");
   } else {
     rEl.innerHTML = `<p class="empty-state">No analyses yet.</p>`;
   }
