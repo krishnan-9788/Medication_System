@@ -280,6 +280,56 @@ def delete_medication(med_id):
     return success(message="Medication deleted.")
 
 
+# ─── TIMETABLE ROUTES ──────────────────────────────────────────────────────────
+
+@app.route("/api/timetable", methods=["GET"])
+@require_auth
+def get_timetable():
+    timetable = db.get_timetable(session["user_id"])
+    return success({"timetable": timetable})
+
+
+@app.route("/api/timetable", methods=["POST"])
+@require_auth
+def add_timetable_entry():
+    data = request.get_json() or {}
+    medicine_name = data.get("medicine_name", "").strip()
+    time_scheduled = data.get("time_scheduled", "").strip()
+    if not medicine_name or not time_scheduled:
+        return error("Medicine name and scheduled time are required.")
+
+    db.add_timetable_entry(
+        user_id=session["user_id"],
+        medicine_name=medicine_name,
+        dosage=data.get("dosage", ""),
+        time_scheduled=time_scheduled
+    )
+    return success(message="Timetable entry added successfully!")
+
+
+@app.route("/api/timetable/<int:entry_id>/status", methods=["PUT"])
+@require_auth
+def update_timetable_status(entry_id):
+    data = request.get_json() or {}
+    status = data.get("status", "").strip()
+    if not status:
+        return error("Status is required.")
+
+    db.update_timetable_status(
+        entry_id=entry_id,
+        user_id=session["user_id"],
+        status=status
+    )
+    return success(message="Timetable status updated!")
+
+
+@app.route("/api/timetable/<int:entry_id>", methods=["DELETE"])
+@require_auth
+def delete_timetable_entry(entry_id):
+    db.delete_timetable_entry(entry_id, session["user_id"])
+    return success(message="Timetable entry deleted.")
+
+
 # ─── OCR UPLOAD ────────────────────────────────────────────────────────────────
 
 @app.route("/api/ocr/upload", methods=["POST"])

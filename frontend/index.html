@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MedAssist AI — Intelligent Health Platform</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -94,6 +94,9 @@
       <div class="nav-section-label">HEALTH MANAGEMENT</div>
       <a href="#" class="nav-item" data-section="profile" onclick="showSection('profile')">
         <span class="nav-icon"><span class="material-symbols-outlined">person</span></span> My Profile
+      </a>
+      <a href="#" class="nav-item" data-section="timetable" onclick="showSection('timetable')">
+        <span class="nav-icon"><span class="material-symbols-outlined">schedule</span></span> Time Table
       </a>
       <a href="#" class="nav-item" data-section="diseases" onclick="showSection('diseases')">
         <span class="nav-icon"><span class="material-symbols-outlined">favorite</span></span> Conditions
@@ -220,7 +223,7 @@
             </div>
             <div class="score-circle">
               <div class="score-inner">
-                <div class="score-val">82</div>
+                <div class="score-val" id="dashboard-health-score">82</div>
                 <div class="score-max">/100</div>
               </div>
             </div>
@@ -463,6 +466,39 @@
         </div>
       </section>
 
+      <!-- ── TIME TABLE ── -->
+      <section id="section-timetable" class="section">
+        <div class="page-header">
+          <h1>Time Table</h1>
+          <p class="page-subtitle">Schedule your daily medication doses</p>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3>Add Schedule Entry</h3></div>
+          <div id="tt-msg" class="form-message hidden"></div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Medicine Name *</label>
+              <input type="text" id="tt-name" placeholder="e.g. Morning Pill" />
+            </div>
+            <div class="form-group">
+              <label>Dosage</label>
+              <input type="text" id="tt-dosage" placeholder="e.g. 1 tablet" />
+            </div>
+            <div class="form-group">
+              <label>Time *</label>
+              <input type="time" id="tt-time" />
+            </div>
+          </div>
+          <button class="btn btn-primary mt-3" onclick="addTimetableEntry()">Schedule Medication</button>
+        </div>
+        <div class="card mt-4">
+          <div class="card-header"><h3>Today's Schedule</h3></div>
+          <div id="timetable-list" class="items-list">
+            <p class="empty-state">No medications scheduled.</p>
+          </div>
+        </div>
+      </section>
+
       <!-- ── OCR UPLOAD ── -->
       <section id="section-ocr" class="section">
         <div class="page-header">
@@ -651,6 +687,7 @@
 <!-- Toast Notification -->
 <div id="toast" class="toast hidden"></div>
 
-<script src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.12/marked.min.js"></script>
+<script src="script.js?v=2"></script>
 </body>
 </html>

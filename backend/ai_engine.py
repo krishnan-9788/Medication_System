@@ -58,7 +58,7 @@ def analyze_medication_safety(new_medicines: list, profile: dict = None, disease
             context_parts.append(f"- Stored Daily Medications (Taken regularly): {', '.join(m_names)}")
         context_str = "\n".join(context_parts)
 
-    system_prompt = f"""You are a clinical pharmacist AI assistant.
+    system_prompt = f"""You are a clinical pharmacist AI assistant. Do not use any emojis in your response.
     Analyze the safety of taking the new medication(s) in context of the patient's existing health profile, stored chronic conditions (diseases), and stored daily medications they are already taking.
     Identify any interactions between the new medicines and the daily medicines, and check if the new medicines exacerbate the chronic conditions.
     
@@ -120,7 +120,7 @@ def analyze_side_effects(medicine: str, profile: dict = None, diseases: list = N
             context_parts.append(f"- Stored Daily Medications (Taken regularly): {', '.join(m_names)}")
         context_str = "\n".join(context_parts)
 
-    system_prompt = f"""You are a medical information AI. Provide detailed side effects for the medication.
+    system_prompt = f"""You are a medical information AI. Provide detailed side effects for the medication. Do not use any emojis in your response.
     Additionally, analyze whether the patient's existing profile, medical conditions, or stored daily medications will increase the risk/severity of these side effects or introduce contraindications.
     
     Patient Context:
@@ -184,7 +184,7 @@ def recommend_alternatives(medicine: str, profile: dict = None, diseases: list =
             context_parts.append(f"- Stored Daily Medications (Taken regularly): {', '.join(m_names)}")
         context_str = "\n".join(context_parts)
 
-    system_prompt = f"""You are a clinical pharmacist AI. Suggest safe and evidence-based alternative medicines.
+    system_prompt = f"""You are a clinical pharmacist AI. Suggest safe and evidence-based alternative medicines. Do not use any emojis in your response.
     Ensure recommended alternatives do not interact negatively with the patient's stored daily medications and are safe to take with the patient's chronic conditions.
     
     Patient Context:
@@ -251,7 +251,7 @@ def generate_nutrition_advice(profile: dict, diseases: list, medications: list) 
     Medications: {', '.join(med_names) if med_names else 'None reported'}
     """
 
-    system_prompt = """You are a clinical nutritionist AI. Provide personalized dietary guidance based on the patient profile.
+    system_prompt = """You are a clinical nutritionist AI. Provide personalized dietary guidance based on the patient profile. Do not use any emojis in your response.
     
     Respond ONLY in this exact JSON format:
     {
@@ -300,7 +300,7 @@ def chat_with_assistant(user_message: str, chat_history: list, profile: dict = N
     Health chatbot using Groq. Maintains conversation context.
     """
     context_parts = ["You are MedAssist AI, a helpful and knowledgeable health assistant."]
-    context_parts.append("You provide accurate, evidence-based health information.")
+    context_parts.append("You provide accurate, evidence-based health information. Do not use any emojis in your responses, maintain a professional tone.")
     context_parts.append("Always advise users to consult a doctor for medical decisions.")
 
     if profile:

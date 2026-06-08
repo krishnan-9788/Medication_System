@@ -127,9 +127,24 @@ def init_db():
         )
     """)
 
+    # Timetable table
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS timetable (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            medicine_name TEXT NOT NULL,
+            dosage TEXT,
+            time_scheduled TEXT NOT NULL,
+            status TEXT DEFAULT 'pending',
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id)
+        )
+    """)
+
     conn.commit()
     conn.close()
     print("Database initialized successfully.")
+
 
 
 # ─── USER OPERATIONS ───────────────────────────────────────────────────────────
@@ -258,6 +273,39 @@ def update_medication(med_id, user_id, medicine_name, dosage, frequency, notes):
 def delete_medication(med_id, user_id):
     conn = get_connection()
     conn.execute("DELETE FROM medications WHERE id=? AND user_id=?", (med_id, user_id))
+    conn.commit()
+    conn.close()
+
+
+# ─── TIMETABLE OPERATIONS ──────────────────────────────────────────────────────
+
+def add_timetable_entry(user_id, medicine_name, dosage, time_scheduled):
+    conn = get_connection()
+    conn.execute("""
+        INSERT INTO timetable (user_id, medicine_name, dosage, time_scheduled)
+        VALUES (?, ?, ?, ?)
+    """, (user_id, medicine_name, dosage, time_scheduled))
+    conn.commit()
+    conn.close()
+
+def get_timetable(user_id):
+    conn = get_connection()
+    rows = conn.execute("SELECT * FROM timetable WHERE user_id = ? ORDER BY time_scheduled ASC", (user_id,)).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+def update_timetable_status(entry_id, user_id, status):
+    conn = get_connection()
+    conn.execute("""
+        UPDATE timetable SET status=?
+        WHERE id=? AND user_id=?
+    """, (status, entry_id, user_id))
+    conn.commit()
+    conn.close()
+
+def delete_timetable_entry(entry_id, user_id):
+    conn = get_connection()
+    conn.execute("DELETE FROM timetable WHERE id=? AND user_id=?", (entry_id, user_id))
     conn.commit()
     conn.close()
 

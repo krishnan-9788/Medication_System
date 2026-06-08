@@ -232,6 +232,22 @@ async function loadDashboard() {
   document.getElementById("stat-reports").textContent = s.report_count ?? "0";
   document.getElementById("stat-analyses").textContent = s.analysis_count ?? "0";
 
+  // Calculate dynamic health score
+  let baseScore = 85;
+  let score = baseScore - ((s.disease_count || 0) * 5) + ((s.analysis_count || 0) * 2);
+  score = Math.min(100, Math.max(40, score));
+  const scoreEl = document.getElementById("dashboard-health-score");
+  if (scoreEl) {
+    scoreEl.textContent = score;
+    // Update status text based on score
+    const statusEl = document.querySelector(".score-status");
+    if (statusEl) {
+      if (score >= 80) statusEl.textContent = "Good";
+      else if (score >= 60) statusEl.textContent = "Fair";
+      else statusEl.textContent = "Needs Attention";
+    }
+  }
+
   // Profile summary
   const profile = data.profile;
   const nameEl = document.getElementById("dashboard-name-display");
