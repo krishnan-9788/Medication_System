@@ -206,6 +206,7 @@ function showSection(name) {
     profile: loadProfile,
     diseases: loadDiseases,
     medications: loadMedications,
+    timetable: loadTimetable,
     ocr: loadOCRHistory,
     history: loadHistory,
     reports: loadReports,
@@ -472,6 +473,74 @@ async function deleteMedication(id) {
   loadMedications();
   loadDashboard();
   showToast("Medication removed.", "success");
+}
+
+// ═══════════════════════════════════════════════════════════
+// TIMETABLE
+// ═══════════════════════════════════════════════════════════
+
+async function loadTimetable() {
+  const data = await fetchAPI("/timetable");
+  const el = document.getElementById("timetable-list");
+  if (!data.success || !data.timetable.length) {
+    el.innerHTML = `<p class="empty-state">No medications scheduled.</p>`;
+    return;
+  }
+  el.innerHTML = data.timetable.map(t => {
+    const isTaken = t.status === 'taken';
+    return `
+    <div class="item-row">
+      <div class="item-icon item-icon-purple"><span class="material-symbols-outlined">schedule</span></div>
+      <div class="item-body">
+        <div class="item-title" style="${isTaken ? 'text-decoration: line-through; color: var(--gray);' : ''}">${escapeHtml(t.medicine_name)}</div>
+        <div class="item-subtitle">
+          ${t.time_scheduled ? 'Time: ' + escapeHtml(t.time_scheduled) : ""}
+          ${t.dosage ? " · " + escapeHtml(t.dosage) : ""}
+        </div>
+      </div>
+      <div class="item-actions">
+        <button class="btn btn-sm ${isTaken ? 'btn-outline' : 'btn-primary'}" onclick="toggleTimetableStatus(${t.id}, '${t.status}')">
+          ${isTaken ? 'Mark Pending' : 'Mark Taken'}
+        </button>
+        <button class="btn btn-sm btn-danger" onclick="deleteTimetableEntry(${t.id})">Delete</button>
+      </div>
+    </div>
+  `}).join("");
+}
+
+async function addTimetableEntry() {
+  const name = document.getElementById("tt-name").value.trim();
+  const time = document.getElementById("tt-time").value;
+  if (!name || !time) { showMsg("tt-msg", "Medicine name and time are required.", "error"); return; }
+
+  const data = await fetchAPI("/timetable", "POST", {
+    medicine_name: name,
+    dosage: document.getElementById("tt-dosage").value,
+    time_scheduled: time
+  });
+
+  if (data.success) {
+    showMsg("tt-msg", "Schedule entry added!", "success");
+    document.getElementById("tt-name").value = "";
+    document.getElementById("tt-dosage").value = "";
+    document.getElementById("tt-time").value = "";
+    loadTimetable();
+  } else {
+    showMsg("tt-msg", data.error || "Failed to add.", "error");
+  }
+}
+
+async function toggleTimetableStatus(id, currentStatus) {
+  const newStatus = currentStatus === 'taken' ? 'pending' : 'taken';
+  await fetchAPI(`/timetable/${id}/status`, "PUT", { status: newStatus });
+  loadTimetable();
+}
+
+async function deleteTimetableEntry(id) {
+  if (!confirm("Delete this schedule entry?")) return;
+  await fetchAPI(`/timetable/${id}`, "DELETE");
+  loadTimetable();
+  showToast("Schedule entry removed.", "success");
 }
 
 // ═══════════════════════════════════════════════════════════

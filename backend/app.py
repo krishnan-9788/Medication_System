@@ -636,6 +636,52 @@ def index():
     return app.send_static_file("index.html")
 
 
+# ─── KEEP-ALIVE SELF-PING ──────────────────────────────────────────────────────
+
+def start_self_ping():
+    """
+    Starts a background daemon thread that pings the Render service's external URL
+    every 10 minutes to prevent the container from sleeping on Render's free tier.
+    """
+    import threading
+    import time
+    import requests
+
+    external_url = os.getenv("RENDER_EXTERNAL_URL")
+    if not external_url:
+        return
+
+    # In local debug mode, Flask reloader will run app.py twice.
+    # We only start the thread in the active reloader process.
+    if os.getenv("WERKZEUG_RUN_MAIN") != "true" and app.debug:
+        return
+
+    def ping_loop():
+        # Wait 60 seconds for server startup to complete
+        time.sleep(60)
+        health_url = f"{external_url.rstrip('/')}/api/health"
+        print(f"[Keep-Alive] Starting self-ping loop targeting: {health_url}")
+        
+        while True:
+            try:
+                # Use a short timeout of 15 seconds to prevent hanging
+                r = requests.get(health_url, timeout=15)
+                print(f"[Keep-Alive] Self-ping status: {r.status_code} at {datetime.utcnow().isoformat()}")
+            except Exception as e:
+                print(f"[Keep-Alive] Self-ping failed: {e}")
+            
+            # Sleep for 10 minutes (600 seconds)
+            time.sleep(600)
+
+    # Start the daemon thread
+    thread = threading.Thread(target=ping_loop, daemon=True)
+    thread.start()
+
+
+# Start self-pinging loop
+start_self_ping()
+
+
 if __name__ == "__main__":
     print("\n" + "="*60)
     print("  [MedAssist AI] Starting Server")
