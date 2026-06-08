@@ -172,9 +172,24 @@ async function checkAuthStatus() {
 function initApp() {
   document.getElementById("auth-screen").classList.add("hidden");
   document.getElementById("app").classList.remove("hidden");
-  document.getElementById("sidebar-username").textContent = currentUser.username;
-  document.getElementById("sidebar-avatar").textContent = currentUser.username[0].toUpperCase();
-  document.getElementById("topbar-username").textContent = currentUser.username;
+  
+  const sidebarUser = document.getElementById("sidebar-username");
+  if (sidebarUser) sidebarUser.textContent = currentUser.username;
+  
+  const topbarUser = document.getElementById("topbar-username");
+  if (topbarUser) {
+    topbarUser.textContent = currentUser.username;
+  }
+
+  // Safely update avatar images using the user's name initials
+  const nameParam = encodeURIComponent(currentUser.username);
+  const avatarUrl = `https://ui-avatars.com/api/?name=${nameParam}&background=155eef&color=fff`;
+
+  const sidebarAvatarImg = document.getElementById("sidebar-avatar-img");
+  if (sidebarAvatarImg) sidebarAvatarImg.src = avatarUrl;
+
+  const topbarAvatarImg = document.getElementById("topbar-avatar-img");
+  if (topbarAvatarImg) topbarAvatarImg.src = avatarUrl;
 
   showSection("dashboard");
   loadDashboard();
