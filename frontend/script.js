@@ -250,10 +250,10 @@ async function loadDashboard() {
     
     if(detailsEl) {
       detailsEl.innerHTML = `
-        <div class="p-stat"><div class="p-stat-label">⚖️ Weight</div><div class="p-stat-val">${profile.weight ? profile.weight + " kg" : "-- kg"}</div></div>
-        <div class="p-stat"><div class="p-stat-label">📏 Height</div><div class="p-stat-val">${profile.height ? profile.height + " cm" : "-- cm"}</div></div>
-        <div class="p-stat"><div class="p-stat-label">🩸 Blood Group</div><div class="p-stat-val">${escapeHtml(profile.blood_group) || "--"}</div></div>
-        <div class="p-stat"><div class="p-stat-label">⏱️ Last Updated</div><div class="p-stat-val">Today</div></div>
+        <div class="p-stat"><div class="p-stat-label"><span class="material-symbols-outlined" style="font-size:16px;">scale</span> Weight</div><div class="p-stat-val">${profile.weight ? profile.weight + " kg" : "-- kg"}</div></div>
+        <div class="p-stat"><div class="p-stat-label"><span class="material-symbols-outlined" style="font-size:16px;">height</span> Height</div><div class="p-stat-val">${profile.height ? profile.height + " cm" : "-- cm"}</div></div>
+        <div class="p-stat"><div class="p-stat-label"><span class="material-symbols-outlined" style="font-size:16px;">bloodtype</span> Blood Group</div><div class="p-stat-val">${escapeHtml(profile.blood_group) || "--"}</div></div>
+        <div class="p-stat"><div class="p-stat-label"><span class="material-symbols-outlined" style="font-size:16px;">schedule</span> Last Updated</div><div class="p-stat-val">Today</div></div>
       `;
     }
     const pEl = document.getElementById("dashboard-profile");
@@ -274,11 +274,11 @@ async function loadDashboard() {
   const rEl = document.getElementById("dashboard-recent");
   if (recent && recent.length > 0) {
     rEl.innerHTML = recent.map(a => {
-      let icon = "⚡";
-      if(a.analysis_type === "side_effects") icon = "◈";
-      if(a.analysis_type === "nutrition") icon = "❋";
-      if(a.analysis_type === "ocr") icon = "⊡";
-      if(a.analysis_type === "alternatives") icon = "↔";
+      let icon = "<span class="material-symbols-outlined">bolt</span>";
+      if(a.analysis_type === "side_effects") icon = "<span class="material-symbols-outlined">medical_information</span>";
+      if(a.analysis_type === "nutrition") icon = "<span class="material-symbols-outlined">eco</span>";
+      if(a.analysis_type === "ocr") icon = "<span class="material-symbols-outlined">document_scanner</span>";
+      if(a.analysis_type === "alternatives") icon = "<span class="material-symbols-outlined">swap_horiz</span>";
       return `
         <div class="recent-item">
           <div class="recent-icon">${icon}</div>
@@ -348,7 +348,7 @@ async function loadDiseases() {
   }
   el.innerHTML = data.diseases.map(d => `
     <div class="item-row">
-      <div class="item-icon item-icon-teal">♡</div>
+      <div class="item-icon item-icon-teal"><span class="material-symbols-outlined">favorite</span></div>
       <div class="item-body">
         <div class="item-title">${escapeHtml(d.disease_name)}
           ${d.severity ? `<span class="badge badge-orange ml-1">${escapeHtml(d.severity)}</span>` : ""}
@@ -410,7 +410,7 @@ async function loadMedications() {
   }
   el.innerHTML = data.medications.map(m => `
     <div class="item-row">
-      <div class="item-icon item-icon-blue">✦</div>
+      <div class="item-icon item-icon-blue"><span class="material-symbols-outlined">medication_liquid</span></div>
       <div class="item-body">
         <div class="item-title">${escapeHtml(m.medicine_name)}</div>
         <div class="item-subtitle">
@@ -560,7 +560,7 @@ async function loadOCRHistory() {
   }
   el.innerHTML = data.reports.map(r => `
     <div class="item-row">
-      <div class="item-icon item-icon-teal">⊡</div>
+      <div class="item-icon item-icon-teal"><span class="material-symbols-outlined">document_scanner</span></div>
       <div class="item-body">
         <div class="item-title">${escapeHtml(r.filename)}</div>
         <div class="item-subtitle">${formatDate(r.created_at)} · ${r.extracted_text ? r.extracted_text.split(" ").length + " words" : "No text"}</div>
@@ -583,7 +583,7 @@ async function analyzeMedications() {
 
   const data = await fetchAPI("/analyze/medications", "POST", { medicines: input });
   hideLoading();
-  btn.textContent = "⚡ Analyze Safety";
+  btn.textContent = "<span class="material-symbols-outlined">bolt</span> Analyze Safety";
 
   if (!data.success) { showToast(data.error || "Analysis failed.", "error"); return; }
 
@@ -614,7 +614,7 @@ async function analyzeMedications() {
 
   if (r.warnings?.length) {
     html += `<div class="result-section">
-      <div class="result-section-title">⚠️ Warnings</div>
+      <div class="result-section-title"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:bottom;">warning</span> Warnings</div>
       <div class="result-list">${r.warnings.map(w => `<div class="result-list-item" style="color:var(--red)">${escapeHtml(w)}</div>`).join("")}</div>
     </div>`;
   }
@@ -661,7 +661,7 @@ async function analyzeSideEffects() {
 
   const data = await fetchAPI("/analyze/side-effects", "POST", { medicine });
   hideLoading();
-  btn.textContent = "◈ Get Side Effects";
+  btn.textContent = "<span class="material-symbols-outlined">medical_information</span> Get Side Effects";
 
   if (!data.success) { showToast(data.error || "Analysis failed.", "error"); return; }
 
@@ -678,7 +678,7 @@ async function analyzeSideEffects() {
 
   if (r.patient_specific_warnings && r.patient_specific_warnings.length > 0) {
     html += `<div class="result-section patient-warnings" style="background:#fff5f5;border:2px solid var(--red);border-radius:10px;padding:0.75rem 1rem;margin-bottom:1.5rem;">
-      <div class="result-section-title" style="color:var(--red);font-weight:bold;margin-bottom:0.5rem;font-size:0.95rem;">⚠️ Personalized Warning based on your Profile, Conditions & Daily Meds:</div>
+      <div class="result-section-title" style="color:var(--red);font-weight:bold;margin-bottom:0.5rem;font-size:0.95rem;"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:bottom;">warning</span> Personalized Warning based on your Profile, Conditions & Daily Meds:</div>
       <div class="result-list">
         ${r.patient_specific_warnings.map(w => `<div class="result-list-item" style="color:var(--dark);font-weight:550;">• ${escapeHtml(w)}</div>`).join("")}
       </div>
@@ -689,7 +689,7 @@ async function analyzeSideEffects() {
     { key: "common_side_effects", label: "Common Side Effects", color: "var(--dark-2)" },
     { key: "moderate_side_effects", label: "Moderate Side Effects", color: "var(--orange)" },
     { key: "rare_side_effects", label: "Rare Side Effects", color: "var(--gray)" },
-    { key: "serious_warnings", label: "⚠️ Serious Warnings", color: "var(--red)" },
+    { key: "serious_warnings", label: "<span class="material-symbols-outlined" style="font-size:18px;vertical-align:bottom;">warning</span> Serious Warnings", color: "var(--red)" },
     { key: "contraindications", label: "Contraindications", color: "var(--red)" }
   ];
 
@@ -730,7 +730,7 @@ async function analyzeAlternatives() {
 
   const data = await fetchAPI("/analyze/alternatives", "POST", { medicine });
   hideLoading();
-  btn.textContent = "↔ Find Alternatives";
+  btn.textContent = "<span class="material-symbols-outlined">swap_horiz</span> Find Alternatives";
 
   if (!data.success) { showToast(data.error || "Analysis failed.", "error"); return; }
 
@@ -746,7 +746,7 @@ async function analyzeAlternatives() {
 
   if (r.patient_specific_warnings && r.patient_specific_warnings.length > 0) {
     html += `<div class="result-section patient-warnings" style="background:#fff5f5;border:2px solid var(--red);border-radius:10px;padding:0.75rem 1rem;margin-bottom:1.5rem;">
-      <div class="result-section-title" style="color:var(--red);font-weight:bold;margin-bottom:0.5rem;font-size:0.95rem;">⚠️ Personalized Warning based on your Profile, Conditions & Daily Meds:</div>
+      <div class="result-section-title" style="color:var(--red);font-weight:bold;margin-bottom:0.5rem;font-size:0.95rem;"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:bottom;">warning</span> Personalized Warning based on your Profile, Conditions & Daily Meds:</div>
       <div class="result-list">
         ${r.patient_specific_warnings.map(w => `<div class="result-list-item" style="color:var(--dark);font-weight:550;">• ${escapeHtml(w)}</div>`).join("")}
       </div>
@@ -766,7 +766,7 @@ async function analyzeAlternatives() {
         <span class="badge ${typeClass} alt-card-type">${escapeHtml(alt.type || "Alternative")}</span>
         ${alt.availability ? `<span class="badge badge-teal" style="margin-left:4px">${escapeHtml(alt.availability)}</span>` : ""}
         <div class="alt-card-reason">${escapeHtml(alt.reason)}</div>
-        ${alt.notes ? `<div class="alt-card-note">⚠️ ${escapeHtml(alt.notes)}</div>` : ""}
+        ${alt.notes ? `<div class="alt-card-note"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:bottom;">warning</span> ${escapeHtml(alt.notes)}</div>` : ""}
       </div>`;
     });
     html += `</div>`;
@@ -800,7 +800,7 @@ async function analyzeNutrition() {
 
   const data = await fetchAPI("/analyze/nutrition", "POST", {});
   hideLoading();
-  btn.textContent = "❋ Generate My Nutrition Plan";
+  btn.textContent = "<span class="material-symbols-outlined">eco</span> Generate My Nutrition Plan";
 
   if (!data.success) { showToast(data.error || "Analysis failed.", "error"); return; }
 
@@ -812,7 +812,7 @@ async function analyzeNutrition() {
   // Foods to eat
   if (r.foods_to_eat?.length) {
     html += `<div class="nut-section eat">
-      <div class="result-section-title">✓ Foods to Eat</div>
+      <div class="result-section-title"><span class="material-symbols-outlined">check_circle</span> Foods to Eat</div>
       ${r.foods_to_eat.map(f => `
         <div class="nut-item">
           <div class="nut-item-food">${escapeHtml(f.food)}</div>
@@ -824,7 +824,7 @@ async function analyzeNutrition() {
   // Foods to avoid
   if (r.foods_to_avoid?.length) {
     html += `<div class="nut-section avoid">
-      <div class="result-section-title">✗ Foods to Avoid</div>
+      <div class="result-section-title"><span class="material-symbols-outlined" style="color:var(--red);">cancel</span> Foods to Avoid</div>
       ${r.foods_to_avoid.map(f => `
         <div class="nut-item">
           <div class="nut-item-food">${escapeHtml(f.food)}</div>
@@ -845,21 +845,21 @@ async function analyzeNutrition() {
 
   if (r.hydration_advice) {
     html += `<div class="result-section">
-      <div class="result-section-title">💧 Hydration</div>
+      <div class="result-section-title"><span class="material-symbols-outlined">water_drop</span> Hydration</div>
       <p style="font-size:0.88rem;color:var(--dark-2);">${escapeHtml(r.hydration_advice)}</p>
     </div>`;
   }
 
   if (r.meal_timing) {
     html += `<div class="result-section">
-      <div class="result-section-title">🕐 Meal Timing</div>
+      <div class="result-section-title"><span class="material-symbols-outlined">schedule</span> Meal Timing</div>
       <p style="font-size:0.88rem;color:var(--dark-2);">${escapeHtml(r.meal_timing)}</p>
     </div>`;
   }
 
   if (r.lifestyle_habits?.length) {
     html += `<div class="result-section">
-      <div class="result-section-title">💪 Healthy Habits</div>
+      <div class="result-section-title"><span class="material-symbols-outlined">fitness_center</span> Healthy Habits</div>
       <div class="result-list">${r.lifestyle_habits.map(h => `<div class="result-list-item">${escapeHtml(h)}</div>`).join("")}</div>
     </div>`;
   }
@@ -903,7 +903,7 @@ function appendChatMessage(role, message) {
   const div = document.createElement("div");
   div.className = `chat-msg ${role}`;
   div.innerHTML = `
-    <div class="chat-msg-avatar">${role === "user" ? "U" : "⚕"}</div>
+    <div class="chat-msg-avatar">${role === "user" ? "U" : "<span class="material-symbols-outlined">medical_services</span>"}</div>
     <div class="chat-msg-bubble">${escapeHtml(message)}</div>
   `;
   container.appendChild(div);
@@ -916,7 +916,7 @@ function showTypingIndicator() {
   typing.id = "typing-indicator";
   typing.className = "chat-msg assistant";
   typing.innerHTML = `
-    <div class="chat-msg-avatar">⚕</div>
+    <div class="chat-msg-avatar"><span class="material-symbols-outlined">medical_services</span></div>
     <div class="chat-msg-bubble chat-typing">
       <span></span><span></span><span></span>
     </div>
@@ -954,7 +954,7 @@ async function clearChat() {
   const container = document.getElementById("chat-messages");
   container.innerHTML = `
     <div class="chat-welcome">
-      <div class="chat-welcome-icon">◉</div>
+      <div class="chat-welcome-icon"><span class="material-symbols-outlined">smart_toy</span></div>
       <h3>Hello! I'm your AI health assistant.</h3>
       <p>Ask me about medications, side effects, drug interactions, or dietary advice.</p>
       <div class="chat-suggestions">
@@ -1001,10 +1001,10 @@ async function generatePDF() {
 
   const data = await fetchAPI("/reports/generate", "POST", {});
   hideLoading();
-  if (btn) btn.textContent = "⊞ Generate PDF Report";
+  if (btn) btn.textContent = "<span class="material-symbols-outlined">picture_as_pdf</span> Generate PDF Report";
 
   if (data.success) {
-    showMsg("pdf-msg", `✓ Report generated: ${data.filename}`, "success");
+    showMsg("pdf-msg", `<span class="material-symbols-outlined">check_circle</span> Report generated: ${data.filename}`, "success");
     showToast("PDF report ready for download!", "success");
     loadReports();
     loadDashboard();
@@ -1026,13 +1026,13 @@ async function loadReports() {
 
   el.innerHTML = data.reports.map(r => `
     <div class="report-item">
-      <div class="report-icon">📄</div>
+      <div class="report-icon"><span class="material-symbols-outlined">description</span></div>
       <div>
         <div class="report-name">${escapeHtml(r.filename)}</div>
         <div class="report-date">${formatDate(r.created_at)}</div>
       </div>
       <a href="${API}/reports/download/${encodeURIComponent(r.filename)}" class="btn btn-sm btn-outline" download>
-        ⬇ Download
+        <span class="material-symbols-outlined" style="font-size:18px">download</span> Download
       </a>
     </div>
   `).join("");

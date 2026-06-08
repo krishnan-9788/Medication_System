@@ -6,6 +6,7 @@
   <title>MedAssist AI — Intelligent Health Platform</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -22,7 +23,7 @@
 
   <div class="auth-card">
     <div class="auth-logo">
-      <div class="auth-logo-icon">⚕</div>
+      <div class="auth-logo-icon"><span class="material-symbols-outlined">medical_services</span></div>
       <div>
         <div class="auth-logo-title">MedAssist AI</div>
         <div class="auth-logo-sub">Intelligent Health Platform</div>
@@ -78,7 +79,7 @@
   <!-- SIDEBAR -->
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-icon">⚕</div>
+      <div class="sidebar-logo-icon"><span class="material-symbols-outlined">medical_services</span></div>
       <div class="sidebar-logo-text">
         <span class="sidebar-logo-title">MedAssist AI</span>
         <span class="sidebar-logo-sub">Your AI Health Companion</span>
@@ -87,46 +88,46 @@
 
     <nav class="sidebar-nav">
       <a href="#" class="nav-item active" data-section="dashboard" onclick="showSection('dashboard')">
-        <span class="nav-icon">🏠</span> Dashboard
+        <span class="nav-icon"><span class="material-symbols-outlined">home</span></span> Dashboard
       </a>
 
       <div class="nav-section-label">HEALTH MANAGEMENT</div>
       <a href="#" class="nav-item" data-section="profile" onclick="showSection('profile')">
-        <span class="nav-icon">👤</span> My Profile
+        <span class="nav-icon"><span class="material-symbols-outlined">person</span></span> My Profile
       </a>
       <a href="#" class="nav-item" data-section="diseases" onclick="showSection('diseases')">
-        <span class="nav-icon">♡</span> Conditions
+        <span class="nav-icon"><span class="material-symbols-outlined">favorite</span></span> Conditions
       </a>
       <a href="#" class="nav-item" data-section="medications" onclick="showSection('medications')">
-        <span class="nav-icon">💊</span> Medications
+        <span class="nav-icon"><span class="material-symbols-outlined">medication</span></span> Medications
       </a>
       <a href="#" class="nav-item" data-section="reports" onclick="showSection('reports')">
-        <span class="nav-icon">📄</span> Reports
+        <span class="nav-icon"><span class="material-symbols-outlined">description</span></span> Reports
       </a>
 
       <div class="nav-section-label">AI HEALTH TOOLS</div>
       <a href="#" class="nav-item" data-section="med-analyzer" onclick="showSection('med-analyzer')">
-        <span class="nav-icon">🔑</span> Medication Checker
+        <span class="nav-icon"><span class="material-symbols-outlined">health_and_safety</span></span> Medication Checker
       </a>
       <a href="#" class="nav-item" data-section="side-effects" onclick="showSection('side-effects')">
-        <span class="nav-icon">🛡️</span> Side Effects
+        <span class="nav-icon"><span class="material-symbols-outlined">shield</span></span> Side Effects
       </a>
       <a href="#" class="nav-item" data-section="alternatives" onclick="showSection('alternatives')">
-        <span class="nav-icon">⇄</span> Alternatives
+        <span class="nav-icon"><span class="material-symbols-outlined">swap_horiz</span></span> Alternatives
       </a>
       <a href="#" class="nav-item" data-section="nutrition" onclick="showSection('nutrition')">
-        <span class="nav-icon">🍎</span> Nutrition Advisor
+        <span class="nav-icon"><span class="material-symbols-outlined">nutrition</span></span> Nutrition Advisor
       </a>
       <a href="#" class="nav-item" data-section="chat" onclick="showSection('chat')">
-        <span class="nav-icon">💬</span> AI Health Assistant
+        <span class="nav-icon"><span class="material-symbols-outlined">chat</span></span> AI Health Assistant
       </a>
 
       <div class="nav-section-label">HISTORY & REPORTS</div>
       <a href="#" class="nav-item" data-section="history" onclick="showSection('history')">
-        <span class="nav-icon">🕒</span> History
+        <span class="nav-icon"><span class="material-symbols-outlined">history</span></span> History
       </a>
       <a href="#" class="nav-item" data-section="ocr" onclick="showSection('ocr')">
-        <span class="nav-icon">📥</span> Export & Reports
+        <span class="nav-icon"><span class="material-symbols-outlined">upload_file</span></span> Export & Reports
       </a>
     </nav>
 
@@ -137,10 +138,10 @@
           <div id="sidebar-username" class="sidebar-user-name">User</div>
           <div class="sidebar-user-role">Patient</div>
         </div>
-        <div class="sidebar-user-arrow">⌄</div>
+        <div class="sidebar-user-arrow"><span class="material-symbols-outlined" style="font-size:18px">expand_more</span></div>
       </div>
       <button class="btn-logout" onclick="handleLogout()">
-        <span class="nav-icon">🚪</span> Sign Out
+        <span class="nav-icon"><span class="material-symbols-outlined">logout</span></span> Sign Out
       </button>
     </div>
   </aside>
@@ -154,12 +155,12 @@
       </div>
       <div class="topbar-right">
         <div class="search-bar">
-          <span class="search-icon">🔍</span>
+          <span class="search-icon"><span class="material-symbols-outlined">search</span></span>
           <input type="text" placeholder="Search medicines, conditions..." />
         </div>
         <div class="topbar-actions">
           <button class="notif-btn">
-            🔔<span class="notif-badge"></span>
+            <span class="material-symbols-outlined">notifications</span><span class="notif-badge"></span>
           </button>
           <img src="https://ui-avatars.com/api/?name=IP&background=155eef&color=fff" alt="User" class="topbar-avatar" id="topbar-avatar-img" />
           <span id="topbar-username" class="topbar-user hidden"></span>
@@ -178,7 +179,7 @@
         <div id="dashboard-stats" class="stats-grid">
           <div class="stat-card stat-blue">
             <div class="stat-header">
-              <div class="stat-icon">♡</div>
+              <div class="stat-icon"><span class="material-symbols-outlined">favorite</span></div>
               <div class="stat-title">Conditions</div>
             </div>
             <div class="stat-number" id="stat-diseases">—</div>
@@ -186,7 +187,7 @@
           </div>
           <div class="stat-card stat-green">
             <div class="stat-header">
-              <div class="stat-icon">✦</div>
+              <div class="stat-icon"><span class="material-symbols-outlined">medication_liquid</span></div>
               <div class="stat-title">Medications</div>
             </div>
             <div class="stat-number" id="stat-meds">—</div>
@@ -194,7 +195,7 @@
           </div>
           <div class="stat-card stat-purple">
             <div class="stat-header">
-              <div class="stat-icon">⊡</div>
+              <div class="stat-icon"><span class="material-symbols-outlined">document_scanner</span></div>
               <div class="stat-title">Reports Uploaded</div>
             </div>
             <div class="stat-number" id="stat-reports">—</div>
@@ -202,7 +203,7 @@
           </div>
           <div class="stat-card stat-orange">
             <div class="stat-header">
-              <div class="stat-icon">⚡</div>
+              <div class="stat-icon"><span class="material-symbols-outlined">bolt</span></div>
               <div class="stat-title">Analyses Done</div>
             </div>
             <div class="stat-number" id="stat-analyses">—</div>
@@ -215,7 +216,7 @@
           <div class="card health-score-card">
             <div class="health-score-header">
               <h3>Health Score</h3>
-              <span style="color:var(--gray)">ⓘ</span>
+              <span style="color:var(--gray)"><span class="material-symbols-outlined">info</span></span>
             </div>
             <div class="score-circle">
               <div class="score-inner">
@@ -227,23 +228,23 @@
             <p class="score-text mt-3">You're doing great! Keep it up.</p>
             <div class="habits-row mt-4">
               <div class="habit-item">
-                <div class="habit-icon">✓</div>
+                <div class="habit-icon"><span class="material-symbols-outlined">check_circle</span></div>
                 <div class="habit-label">Take medications on time</div>
               </div>
               <div class="habit-item">
-                <div class="habit-icon">✓</div>
+                <div class="habit-icon"><span class="material-symbols-outlined">check_circle</span></div>
                 <div class="habit-label">Eat nutritious meals</div>
               </div>
               <div class="habit-item">
-                <div class="habit-icon">✓</div>
+                <div class="habit-icon"><span class="material-symbols-outlined">check_circle</span></div>
                 <div class="habit-label">Stay hydrated</div>
               </div>
               <div class="habit-item">
-                <div class="habit-icon">✓</div>
+                <div class="habit-icon"><span class="material-symbols-outlined">check_circle</span></div>
                 <div class="habit-label">Exercise regularly</div>
               </div>
             </div>
-            <button class="btn-light-blue mt-2" onclick="showSection('history')">📈 View full health insights →</button>
+            <button class="btn-light-blue mt-2" onclick="showSection('history')"><span class="material-symbols-outlined">trending_up</span> View full health insights →</button>
           </div>
 
           <!-- Profile Summary -->
@@ -261,12 +262,12 @@
             </div>
             <div class="profile-stats-list" id="dashboard-profile-details">
               <!-- JS fallback for the static look -->
-              <div class="p-stat"><div class="p-stat-label">⚖️ Weight</div><div class="p-stat-val">-- kg</div></div>
-              <div class="p-stat"><div class="p-stat-label">📏 Height</div><div class="p-stat-val">-- cm</div></div>
-              <div class="p-stat"><div class="p-stat-label">🩸 Blood Group</div><div class="p-stat-val">--</div></div>
-              <div class="p-stat"><div class="p-stat-label">⏱️ Last Updated</div><div class="p-stat-val">Today</div></div>
+              <div class="p-stat"><div class="p-stat-label"><span class="material-symbols-outlined" style="font-size:16px;">scale</span> Weight</div><div class="p-stat-val">-- kg</div></div>
+              <div class="p-stat"><div class="p-stat-label"><span class="material-symbols-outlined" style="font-size:16px;">height</span> Height</div><div class="p-stat-val">-- cm</div></div>
+              <div class="p-stat"><div class="p-stat-label"><span class="material-symbols-outlined" style="font-size:16px;">bloodtype</span> Blood Group</div><div class="p-stat-val">--</div></div>
+              <div class="p-stat"><div class="p-stat-label"><span class="material-symbols-outlined" style="font-size:16px;">schedule</span> Last Updated</div><div class="p-stat-val">Today</div></div>
             </div>
-            <button class="btn-light-blue mt-4" onclick="showSection('profile')">👤 View full profile →</button>
+            <button class="btn-light-blue mt-4" onclick="showSection('profile')"><span class="material-symbols-outlined">person</span> View full profile →</button>
             <!-- Hidden container for JS to update so we don't break existing logic -->
             <div id="dashboard-profile" style="display:none;"></div>
           </div>
@@ -289,27 +290,27 @@
             <div class="card-header"><h3>Quick Actions</h3></div>
             <div class="quick-actions">
               <button class="qa-btn blue" onclick="showSection('med-analyzer')">
-                <div class="qa-icon">💊</div>
+                <div class="qa-icon"><span class="material-symbols-outlined">medication</span></div>
                 <div class="qa-text">Medication<br>Checker</div>
                 <div class="qa-arrow">→</div>
               </button>
               <button class="qa-btn green" onclick="showSection('side-effects')">
-                <div class="qa-icon">🛡️</div>
+                <div class="qa-icon"><span class="material-symbols-outlined">shield</span></div>
                 <div class="qa-text">Side Effects<br>Checker</div>
                 <div class="qa-arrow">→</div>
               </button>
               <button class="qa-btn purple" onclick="showSection('ocr')">
-                <div class="qa-icon">☁️</div>
+                <div class="qa-icon"><span class="material-symbols-outlined">cloud_upload</span></div>
                 <div class="qa-text">Upload<br>Report</div>
                 <div class="qa-arrow">→</div>
               </button>
               <button class="qa-btn orange" onclick="showSection('nutrition')">
-                <div class="qa-icon">🍎</div>
+                <div class="qa-icon"><span class="material-symbols-outlined">nutrition</span></div>
                 <div class="qa-text">Nutrition<br>Advisor</div>
                 <div class="qa-arrow">→</div>
               </button>
               <button class="qa-btn teal" onclick="showSection('chat')">
-                <div class="qa-icon">🤖</div>
+                <div class="qa-icon"><span class="material-symbols-outlined">robot_2</span></div>
                 <div class="qa-text">AI Health<br>Assistant</div>
                 <div class="qa-arrow">→</div>
               </button>
@@ -470,7 +471,7 @@
         </div>
         <div class="card">
           <div class="upload-zone" id="upload-zone" onclick="document.getElementById('ocr-file').click()">
-            <div class="upload-icon">⊡</div>
+            <div class="upload-icon"><span class="material-symbols-outlined">document_scanner</span></div>
             <div class="upload-title">Drop your file here</div>
             <div class="upload-sub">PDF, PNG, JPG, JPEG — Max 20MB</div>
             <button class="btn btn-outline mt-2">Choose File</button>
@@ -511,7 +512,7 @@
             <textarea id="ma-medicines" rows="4" placeholder="Paracetamol&#10;Ibuprofen&#10;Aspirin"></textarea>
           </div>
           <button class="btn btn-primary" onclick="analyzeMedications()">
-            <span id="ma-btn-text">⚡ Analyze Safety</span>
+            <span id="ma-btn-text"><span class="material-symbols-outlined">bolt</span> Analyze Safety</span>
           </button>
         </div>
 
@@ -530,7 +531,7 @@
             <input type="text" id="se-medicine" placeholder="e.g. Metformin, Aspirin, Omeprazole" />
           </div>
           <button class="btn btn-primary" onclick="analyzeSideEffects()">
-            <span id="se-btn-text">◈ Get Side Effects</span>
+            <span id="se-btn-text"><span class="material-symbols-outlined">medical_information</span> Get Side Effects</span>
           </button>
         </div>
 
@@ -549,7 +550,7 @@
             <input type="text" id="alt-medicine" placeholder="e.g. Ibuprofen, Metoprolol, Atorvastatin" />
           </div>
           <button class="btn btn-primary" onclick="analyzeAlternatives()">
-            <span id="alt-btn-text">↔ Find Alternatives</span>
+            <span id="alt-btn-text"><span class="material-symbols-outlined">swap_horiz</span> Find Alternatives</span>
           </button>
         </div>
 
@@ -565,10 +566,10 @@
         <div class="card">
           <p>Your personalized nutrition plan is based on your saved profile, conditions, and medications.</p>
           <div class="disclaimer-box">
-            ⚠️ <strong>Educational guidance only.</strong> This is not a substitute for professional dietitian advice.
+            <span class="material-symbols-outlined" style="font-size:18px;vertical-align:bottom;">warning</span> <strong>Educational guidance only.</strong> This is not a substitute for professional dietitian advice.
           </div>
           <button class="btn btn-primary mt-3" onclick="analyzeNutrition()">
-            <span id="nut-btn-text">❋ Generate My Nutrition Plan</span>
+            <span id="nut-btn-text"><span class="material-symbols-outlined">eco</span> Generate My Nutrition Plan</span>
           </button>
         </div>
 
@@ -584,7 +585,7 @@
         <div class="chat-container card">
           <div class="chat-messages" id="chat-messages">
             <div class="chat-welcome">
-              <div class="chat-welcome-icon">◉</div>
+              <div class="chat-welcome-icon"><span class="material-symbols-outlined">smart_toy</span></div>
               <h3>Hello! I'm your AI health assistant.</h3>
               <p>Ask me about medications, side effects, drug interactions, or dietary advice.</p>
               <div class="chat-suggestions">
@@ -626,7 +627,7 @@
           <p class="text-muted mb-3">Your report will include your profile, conditions, medications, and recent analyses.</p>
           <div id="pdf-msg" class="form-message hidden"></div>
           <button class="btn btn-primary" onclick="generatePDF()">
-            <span id="pdf-btn-text">⊞ Generate PDF Report</span>
+            <span id="pdf-btn-text"><span class="material-symbols-outlined">picture_as_pdf</span> Generate PDF Report</span>
           </button>
         </div>
         <div class="card mt-4">
