@@ -1054,3 +1054,9 @@ document.addEventListener("keypress", function(e) {
 
 // Check auth on load
 window.addEventListener("DOMContentLoaded", checkAuthStatus);
+
+// Keep the Render backend awake while the user has the site open.
+// Pings the health endpoint every 14 minutes (840000 ms)
+setInterval(() => {
+  fetchAPI("/health").catch(e => console.log("Keep-alive ping failed:", e));
+}, 14 * 60 * 1000);
