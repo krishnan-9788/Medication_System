@@ -306,11 +306,11 @@ async function loadDashboard() {
   const rEl = document.getElementById("dashboard-recent");
   if (recent && recent.length > 0) {
     rEl.innerHTML = recent.map(a => {
-      let icon = "<span class="material-symbols-outlined">bolt</span>";
-      if(a.analysis_type === "side_effects") icon = "<span class="material-symbols-outlined">medical_information</span>";
-      if(a.analysis_type === "nutrition") icon = "<span class="material-symbols-outlined">eco</span>";
-      if(a.analysis_type === "ocr") icon = "<span class="material-symbols-outlined">document_scanner</span>";
-      if(a.analysis_type === "alternatives") icon = "<span class="material-symbols-outlined">swap_horiz</span>";
+      let icon = `<span class="material-symbols-outlined">bolt</span>`;
+      if(a.analysis_type === "side_effects") icon = `<span class="material-symbols-outlined">medical_information</span>`;
+      if(a.analysis_type === "nutrition") icon = `<span class="material-symbols-outlined">eco</span>`;
+      if(a.analysis_type === "ocr") icon = `<span class="material-symbols-outlined">document_scanner</span>`;
+      if(a.analysis_type === "alternatives") icon = `<span class="material-symbols-outlined">swap_horiz</span>`;
       return `
         <div class="recent-item">
           <div class="recent-icon">${icon}</div>
@@ -683,7 +683,7 @@ async function analyzeMedications() {
 
   const data = await fetchAPI("/analyze/medications", "POST", { medicines: input });
   hideLoading();
-  btn.textContent = "<span class="material-symbols-outlined">bolt</span> Analyze Safety";
+  btn.innerHTML = `<span class="material-symbols-outlined">bolt</span> Analyze Safety`;
 
   if (!data.success) { showToast(data.error || "Analysis failed.", "error"); return; }
 
@@ -761,7 +761,7 @@ async function analyzeSideEffects() {
 
   const data = await fetchAPI("/analyze/side-effects", "POST", { medicine });
   hideLoading();
-  btn.textContent = "<span class="material-symbols-outlined">medical_information</span> Get Side Effects";
+  btn.innerHTML = `<span class="material-symbols-outlined">medical_information</span> Get Side Effects`;
 
   if (!data.success) { showToast(data.error || "Analysis failed.", "error"); return; }
 
@@ -789,7 +789,7 @@ async function analyzeSideEffects() {
     { key: "common_side_effects", label: "Common Side Effects", color: "var(--dark-2)" },
     { key: "moderate_side_effects", label: "Moderate Side Effects", color: "var(--orange)" },
     { key: "rare_side_effects", label: "Rare Side Effects", color: "var(--gray)" },
-    { key: "serious_warnings", label: "<span class="material-symbols-outlined" style="font-size:18px;vertical-align:bottom;">warning</span> Serious Warnings", color: "var(--red)" },
+    { key: "serious_warnings", label: `<span class="material-symbols-outlined" style="font-size:18px;vertical-align:bottom;">warning</span> Serious Warnings`, color: "var(--red)" },
     { key: "contraindications", label: "Contraindications", color: "var(--red)" }
   ];
 
@@ -830,7 +830,7 @@ async function analyzeAlternatives() {
 
   const data = await fetchAPI("/analyze/alternatives", "POST", { medicine });
   hideLoading();
-  btn.textContent = "<span class="material-symbols-outlined">swap_horiz</span> Find Alternatives";
+  btn.innerHTML = `<span class="material-symbols-outlined">swap_horiz</span> Find Alternatives`;
 
   if (!data.success) { showToast(data.error || "Analysis failed.", "error"); return; }
 
@@ -900,7 +900,7 @@ async function analyzeNutrition() {
 
   const data = await fetchAPI("/analyze/nutrition", "POST", {});
   hideLoading();
-  btn.textContent = "<span class="material-symbols-outlined">eco</span> Generate My Nutrition Plan";
+  btn.innerHTML = `<span class="material-symbols-outlined">eco</span> Generate My Nutrition Plan`;
 
   if (!data.success) { showToast(data.error || "Analysis failed.", "error"); return; }
 
@@ -1101,10 +1101,10 @@ async function generatePDF() {
 
   const data = await fetchAPI("/reports/generate", "POST", {});
   hideLoading();
-  if (btn) btn.textContent = "<span class="material-symbols-outlined">picture_as_pdf</span> Generate PDF Report";
+  if (btn) btn.innerHTML = `<span class="material-symbols-outlined">picture_as_pdf</span> Generate PDF Report`;
 
   if (data.success) {
-    showMsg("pdf-msg", `<span class="material-symbols-outlined">check_circle</span> Report generated: ${data.filename}`, "success");
+    showMsg("pdf-msg", `Report generated: ${data.filename}`, "success");
     showToast("PDF report ready for download!", "success");
     loadReports();
     loadDashboard();
